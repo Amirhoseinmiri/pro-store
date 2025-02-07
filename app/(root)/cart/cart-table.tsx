@@ -13,7 +13,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { it } from "node:test";
 import { Button } from "../../../components/ui/button";
 import {
   addItemToCart,
