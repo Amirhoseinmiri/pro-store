@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { getUserById } from "@/lib/actions/user.action";
 import ShippingAddressForm from "./shipping-address-form";
 import type { ShippingAddress } from "@/types";
+import CheckOutSteps from "@/components/checkout-steps";
 
 export const metadata: Metadata = {
   title: "Shipping Address",
@@ -21,6 +22,7 @@ const ShippingAddress = async () => {
 
   return (
     <div>
+      <CheckOutSteps current={1} />
       <ShippingAddressForm address={user.address as ShippingAddress} />
     </div>
   );
