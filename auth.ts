@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/db/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { compareSync } from "bcrypt-ts-edge";
 export const config = {
@@ -78,30 +76,6 @@ export const config = {
             data: { name: token.name },
           });
         }
-
-        // if (trigger === "signIn" || trigger === "signUp") {
-        //   const cookiesObject = await cookies();
-        //   const sessionCartId = cookiesObject.get("sessionCartId")?.value;
-
-        //   if (sessionCartId) {
-        //     const sessionCart = await prisma.cart.findFirst({
-        //       where: { sessionCartId },
-        //     });
-
-        //     if (sessionCart) {
-        //       // Delete current user cart
-        //       await prisma.cart.deleteMany({
-        //         where: { userId: user.id },
-        //       });
-
-        //       // Assign new cart
-        //       await prisma.cart.update({
-        //         where: { id: sessionCart.id },
-        //         data: { userId: user.id },
-        //       });
-        //     }
-        //   }
-        // }
       }
 
       // Handle session updates
@@ -111,7 +85,7 @@ export const config = {
 
       return token;
     },
-    authorized({ request, auth }: any) {
+    authorized({ request }: any) {
       // check for session cart cookie
       if (!request.cookies.get("sessionCartId")) {
         // generate new session cart id cookie
